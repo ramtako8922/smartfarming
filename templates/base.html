@@ -1,0 +1,22 @@
+<!-- filepath: /d:/Maestría/smartfarming/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Farming{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="/">Inicio</a>
+        <a href="/temperatura">Temperatura</a>
+        <a href="/luminosidad">Luminosidad</a>
+        <a href="/nivel-lluvia">Nivel de Lluvia</a>
+        <a href="/nivel-metano">Nivel de Metano</a>
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
