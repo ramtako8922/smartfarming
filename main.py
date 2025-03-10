@@ -24,8 +24,8 @@ async def read_luminosidad(request: Request):
 
 @app.get("/nivel-lluvia", response_class=HTMLResponse)
 async def read_nivel_lluvia(request: Request):
-    return templates.TemplateResponse("nivel_lluvia.html", {"request": request})
+    return templates.TemplateResponse("nivel-lluvia.html", {"request": request})
 
 @app.get("/nivel-metano", response_class=HTMLResponse)
 async def read_nivel_metano(request: Request):
-    return templates.TemplateResponse("nivel_metano.html", {"request": request})
+    return templates.TemplateResponse("nivel-metano.html", {"request": request})

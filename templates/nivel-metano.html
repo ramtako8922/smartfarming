@@ -1,20 +1,20 @@
-<!-- filepath: /d:/Maestría/smartfarming/templates/luminosidad.html -->
+<!-- filepath: /d:/Maestría/smartfarming/templates/nivel-metano.html -->
 {% extends "base.html" %}
 
-{% block title %}Luminosidad - Smart Farming{% endblock %}
+{% block title %}Lluvia - Smart Farming{% endblock %}
 
 {% block content %}
 
-<link rel="stylesheet" href="/static/css/luminosidad.css">
+<link rel="stylesheet" href="/static/css/nivel-metano.css">
 <div class="container-title">
     <h1 class="main-title">SMART FARMING</h1>
 </div>
 <div class="main-text">
-    <p>Consulte las mediciones registradas de la luminosidad en su cultivo.</p>
+    <p>Consulte las mediciones registradas del nivel de metano en su cultivo.</p>
 </div>
 <div class="query-container">
     
-     <p class="query-title">Seleccione la fecha para consultar la luminosidad:</p>
+     <p class="query-title">Seleccione la fecha para consultar el nivel de lluvia:</p>
      <!-- Aquí va el calendario con las fechas para seleccionar -->
 
     <div class="form-container">
@@ -34,10 +34,10 @@
     
     <!-- Aquí va el gráfico que representa las mediciones de temperatura -->
     <div>
-        <canvas id="luminosidadChart"></canvas>
+        <canvas id="metanoChart"></canvas>
     </div>
    
 
 </div>
-<script src="/static/js/luminosidad.js"></script>
+<script src="/static/js/nivel-metano.js"></script>
 {% endblock %}
