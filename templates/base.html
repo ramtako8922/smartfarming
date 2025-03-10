@@ -5,15 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Smart Farming{% endblock %}</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
 <body>
     <div class="sidebar">
-        <a href="/">Inicio</a>
-        <a href="/temperatura">Temperatura</a>
-        <a href="/luminosidad">Luminosidad</a>
-        <a href="/nivel-lluvia">Nivel de Lluvia</a>
-        <a href="/nivel-metano">Nivel de Metano</a>
+        <a href="/"><i class="fas fa-home"></i> Inicio</a>
+        <a href="/temperatura"><i class="fas fa-thermometer-half"></i> Temperatura</a>
+        <a href="/luminosidad"><i class="fas fa-sun"></i> Luminosidad</a>
+        <a href="/nivel-lluvia"><i class="fas fa-cloud-rain"></i> Nivel de Lluvia</a>
+        <a href="/nivel-metano"><i class="fas fa-gas-pump"></i> Nivel de Metano</a>
     </div>
     <div class="content">
         {% block content %}{% endblock %}

@@ -1,0 +1,20 @@
+.main-text{
+   
+    font-size: 2.8em;
+    color: #000000;
+    margin-bottom: 20px;
+    font-weight: 400;
+    line-height: 60.24px;
+    text-align: center;
+}
+.container-imagees{
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+    height: auto;
+}
+
+ img{
+    width: 50%;
+    height: auto;
+}
