@@ -2,16 +2,16 @@
 const channel1 = {
     id: "2865291", // ID del canal 1
     apiKey: "GCPYYUBJMUIUL4Y5", // Clave API del canal 1
-    field: 8
+    field: 7
 };
 
 const channel2 = {
     id: "2865282", // ID del canal 2
     apiKey: "NPFXILODVJGZOXH2", // Clave API del canal 2
-    field: 8
+    field: 7
 };
 
-const getUrl = (channel) => `https://api.thingspeak.com/channels/${channel.id}/feeds.json?api_key=${channel.apiKey}&results=800`;
+const getUrl = (channel) => `https://api.thingspeak.com/channels/${channel.id}/feeds.json?api_key=${channel.apiKey}&results=700`;
 
 async function fetchChannelData(url) {
     try {
@@ -57,7 +57,7 @@ function renderChart(canvasId, labels, data, label, color) {
                 y: {
                     title: {
                         display: true,
-                        text: 'Temperatura (°C)'
+                        text: 'Humedad (%)'
                     },
                     beginAtZero: false
                 }
@@ -88,11 +88,11 @@ document.getElementById('consultar').addEventListener('click', async () => {
         if (filteredData1.length > 0 || filteredData2.length > 0) {
             const labels1 = filteredData1.map(feed => new Date(feed.created_at).toLocaleTimeString());
             const values1 = filteredData1.map(feed => parseFloat(feed[`field${channel1.field}`]));
-            renderChart('grafica1', labels1, values1, 'Galpón 1', 'green');
+            renderChart('grafica1', labels1, values1, 'Galpon 1', 'green');
 
             const labels2 = filteredData2.map(feed => new Date(feed.created_at).toLocaleTimeString());
             const values2 = filteredData2.map(feed => parseFloat(feed[`field${channel2.field}`]));
-            renderChart('grafica2', labels2, values2, 'Galpón 2', 'green');
+            renderChart('grafica2', labels2, values2, 'Galpon 2', 'green');
         } else {
             alert('No hay datos disponibles para la fecha seleccionada.');
         }

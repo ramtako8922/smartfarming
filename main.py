@@ -18,14 +18,17 @@ async def read_root(request: Request):
 async def read_temperatura(request: Request):
     return templates.TemplateResponse("temperatura.html", {"request": request})
 
-@app.get("/luminosidad", response_class=HTMLResponse)
-async def read_luminosidad(request: Request):
-    return templates.TemplateResponse("luminosidad.html", {"request": request})
+@app.get("/dioxido", response_class=HTMLResponse)
+async def read_dioxido(request: Request):
+    return templates.TemplateResponse("dioxido.html", {"request": request})
 
-@app.get("/nivel-lluvia", response_class=HTMLResponse)
-async def read_nivel_lluvia(request: Request):
-    return templates.TemplateResponse("nivel-lluvia.html", {"request": request})
+@app.get("/humedad", response_class=HTMLResponse)
+async def read_nivel_humedad(request: Request):
+    return templates.TemplateResponse("humedad.html", {"request": request})
 
-@app.get("/nivel-metano", response_class=HTMLResponse)
-async def read_nivel_metano(request: Request):
-    return templates.TemplateResponse("nivel-metano.html", {"request": request})
+@app.get("/carbono", response_class=HTMLResponse)
+async def read_nivel_carbono(request: Request):
+    return templates.TemplateResponse("carbono.html", {"request": request})
+app.get("/material", response_class=HTMLResponse)
+async def read_material_particulado(request: Request):
+    return templates.TemplateResponse("material.html", {"request": request})
