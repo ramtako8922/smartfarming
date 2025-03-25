@@ -1,13 +1,15 @@
+import 'dotenv/config';
+
 // Configura los detalles de tu canal de ThingSpeak
 const channel1 = {
-    id: "", // ID del canal 1
-    apiKey: "", // Clave API del canal 1
+    id: process.env.CHANEL_ID, // ID del canal 1
+    apiKey: process.env.API_KEY, // Clave API del canal 1
     field: 4 // Campo del canal
 };
 
 const channel2 = {
-    id: "", // ID del canal 2
-    apiKey: "", // Clave API del canal 2
+    id: process.env.CHANEL_ID2, // ID del canal 2
+    apiKey: process.env.API_KEY2, // Clave API del canal 2
     field: 4 // Campo del canal
 };
 

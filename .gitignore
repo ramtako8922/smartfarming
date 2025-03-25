@@ -1,0 +1,14 @@
+# Archivos de entorno
+.env
+# Archivos de compilación
+dist/
+build/
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+*.swp
