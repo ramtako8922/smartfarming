@@ -29,6 +29,6 @@ async def read_nivel_humedad(request: Request):
 @app.get("/carbono", response_class=HTMLResponse)
 async def read_nivel_carbono(request: Request):
     return templates.TemplateResponse("carbono.html", {"request": request})
-app.get("/material", response_class=HTMLResponse)
+@app.get("/material", response_class=HTMLResponse)
 async def read_material_particulado(request: Request):
     return templates.TemplateResponse("material.html", {"request": request})

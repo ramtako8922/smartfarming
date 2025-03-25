@@ -10,11 +10,11 @@
     <h1 class="main-title">SMART FARMING</h1>
 </div>
 <div class="main-text">
-    <p>Consulte las mediciones registradas de la luminosidad en su cultivo.</p>
+    <p>Consulte las mediciones registradas de material particulado en su galpon.</p>
 </div>
 <div class="query-container">
     
-     <p class="query-title">Seleccione la fecha para consultar la luminosidad:</p>
+     <p class="query-title">Seleccione la fecha para consultar el nivel de material particulado:</p>
      <!-- Aquí va el calendario con las fechas para seleccionar -->
 
     <div class="form-container">
@@ -33,11 +33,14 @@
 </div>
     
     <!-- Aquí va el gráfico que representa las mediciones de temperatura -->
-    <div>
-        <canvas id="luminosidadChart"></canvas>
+    <div class="chart-container">
+        <canvas id="grafica1"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="grafica2"></canvas>
     </div>
    
 
 </div>
-<script src="/static/js/luminosidad.js"></script>
+<script src="/static/js/material.js"></script>
 {% endblock %}

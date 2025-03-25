@@ -1,69 +1,117 @@
-document.getElementById('consultar').addEventListener('click', function() {
-    const startDate = document.getElementById('date-start').value;
-    const endDate = document.getElementById('date-end').value;
+// Configura los detalles de tu canal de ThingSpeak
+const channel1 = {
+    id: "", // ID del canal 1
+    apiKey: "", // Clave API del canal 1
+    field: 5 // Campo del canal
+};
 
-    if (startDate && endDate) {
-        const labels = generateDateRange(startDate, endDate);
-        const data = generateRandomTemperatures(labels.length);
+const channel2 = {
+    id: "", // ID del canal 2
+    apiKey: "", // Clave API del canal 2
+    field: 5 // Campo del canal
+};
 
-        const ctx = document.getElementById('metanoChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Nivel Metano Promedio',
-                    data: data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    fill: false
-                }]
+// Genera la URL para la API de ThingSpeak
+const getUrl = (channel, results = 8000, start = null, end = null) => {
+    let url = `https://api.thingspeak.com/channels/${channel.id}/fields/${channel.field}.json?api_key=${channel.apiKey}&results=${results}`;
+    if (start) url += `&start=${start}`;
+    if (end) url += `&end=${end}`;
+    return url;
+};
+
+// Función para obtener datos de un canal
+async function fetchChannelData(url) {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.feeds || [];
+    } catch (error) {
+        console.error("Error al obtener datos:", error);
+        return [];
+    }
+}
+
+// Renderiza la gráfica
+function renderChart(canvasId, labels, data, label, color) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: label,
+                data: data,
+                borderColor: color,
+                backgroundColor: 'rgba(0, 255, 179, 0.32)',
+                borderWidth: 2,
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: label
+                }
             },
-            options: {
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        },
-                        title: {
-                            display: true,
-                            text: 'Fechas'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true
-                        , title: {
-                            display: true,
-                            text: 'Nivel de Metano (ppm)'
-                        }
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Hora'
                     }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Cantidad de CO2 (ppm)'
+                    },
+                    beginAtZero: false
                 }
             }
-        });
+        }
+    });
+}
+
+// Evento para consultar datos y generar gráficas
+document.getElementById('consultar').addEventListener('click', async () => {
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+    console.log("Consultando datos...");
+    console.log("Fechas de inicio:", startDate);
+    console.log("Fechas de fin:", endDate);
+
+    if (startDate && endDate) {
+        // Formatea las fechas en ISO 8601
+        const formattedStartDate = startDate + 'T00:00:00Z';
+        const formattedEndDate = endDate + 'T23:59:59Z';
+
+        // Genera las URLs dinámicamente con las fechas seleccionadas
+        const url1 = getUrl(channel1, 8000, formattedStartDate, formattedEndDate);
+        const url2 = getUrl(channel2, 8000, formattedStartDate, formattedEndDate);
+
+        console.log("URL Canal 1:", url1);
+        console.log("URL Canal 2:", url2);
+
+        // Obtiene los datos de los canales
+        const [data1, data2] = await Promise.all([
+            fetchChannelData(url1),
+            fetchChannelData(url2)
+        ]);
+
+        if (data1.length > 0 || data2.length > 0) {
+            const labels1 = data1.map(feed => new Date(feed.created_at).toLocaleTimeString());
+            const values1 = data1.map(feed => parseFloat(feed[`field${channel1.field}`]));
+            renderChart('grafica1', labels1, values1, 'Galpón 1', 'green');
+
+            const labels2 = data2.map(feed => new Date(feed.created_at).toLocaleTimeString());
+            const values2 = data2.map(feed => parseFloat(feed[`field${channel2.field}`]));
+            renderChart('grafica2', labels2, values2, 'Galpón 2', 'blue');
+        } else {
+            alert('No hay datos disponibles para el rango de fechas seleccionado.');
+        }
     } else {
-        alert('Por favor, selecciona un rango de fechas.');
+        alert('Por favor, selecciona un rango de fechas válido.');
     }
 });
-
-function generateDateRange(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const dateArray = [];
-    let currentDate = start;
-
-    while (currentDate <= end) {
-        dateArray.push(new Date(currentDate));
-        currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return dateArray;
-}
-
-function generateRandomTemperatures(numDays) {
-    const temperatures = [];
-    for (let i = 0; i < numDays; i++) {
-        temperatures.push(Math.floor(Math.random() * 30) + 10); // Temperaturas aleatorias entre 10 y 40 grados
-    }
-    return temperatures;
-}

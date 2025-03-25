@@ -19,8 +19,12 @@
 
      <div class="form-container">
         <div class="form-input">
-       <label for="date-start">Fecha de medición:</label>
-        <input class="date-start" type="date" id="date-start" name="date-start">
+            <label for="date-start">Fecha de inicio:</label>
+            <input type="date" id="date-start">
+        </div>
+        <div class="form-input">
+            <label for="date-end">Fecha de fin:</label>
+            <input type="date" id="date-end">
         </div>
         
         <div class="button-container">
@@ -30,10 +34,13 @@
 </div>
     
     <!-- Aquí va el gráfico que representa las mediciones de carbono -->
-    <div>
+    <div class="chart-container">
         <canvas id="grafica1"></canvas>
+    </div>
+    <div class="chart-container">
         <canvas id="grafica2"></canvas>
-    </div>  
+    </div>
+   
 
 </div>
 <script src="/static/js/carbono.js"></script>
