@@ -6,8 +6,8 @@ const channel1 = {
 };
 
 const channel2 = {
-    id: "", // ID del canal 2
-    apiKey: "", // Clave API del canal 2
+    id: "2865282", // ID del canal 2
+    apiKey: "NPFXILODVJGZOXH2", // Clave API del canal 2
     field: 2 // Campo del canal
 };
 

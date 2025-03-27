@@ -1,13 +1,13 @@
 // Configura los detalles de tu canal de ThingSpeak
 const channel1 = {
-    id: "", // ID del canal 1
-    apiKey: "", // Clave API del canal 1
+    id:  "2865291", // ID del canal 1
+    apiKey: "GCPYYUBJMUIUL4Y5", // Clave API del canal 1
     field: 8 // Campo del canal
 };
 
 const channel2 = {
-    id: "", // ID del canal 2
-    apiKey: "", // Clave API del canal 2
+    id: "2865282", // ID del canal 2
+    apiKey: "NPFXILODVJGZOXH2", // Clave API del canal 2
     field: 8 // Campo del canal
 };
 

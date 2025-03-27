@@ -1,15 +1,13 @@
-import 'dotenv/config';
-
 // Configura los detalles de tu canal de ThingSpeak
 const channel1 = {
-    id: process.env.CHANEL_ID, // ID del canal 1
-    apiKey: process.env.API_KEY, // Clave API del canal 1
+    id: "2865291", // ID del canal 1
+    apiKey: "GCPYYUBJMUIUL4Y5", // Clave API del canal 1
     field: 4 // Campo del canal
 };
 
 const channel2 = {
-    id: process.env.CHANEL_ID2, // ID del canal 2
-    apiKey: process.env.API_KEY2, // Clave API del canal 2
+    id: "2865282", // ID del canal 2
+    apiKey: "NPFXILODVJGZOXH2", // Clave API del canal 2
     field: 4 // Campo del canal
 };
 
@@ -67,7 +65,7 @@ function renderChart(canvasId, labels, data, label, color) {
                 y: {
                     title: {
                         display: true,
-                        text: ' Cantidad Carabono (ppm)'
+                        text: 'Cantidad de CO (ppm)'
                     },
                     beginAtZero: false
                 }
