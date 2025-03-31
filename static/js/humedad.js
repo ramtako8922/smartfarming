@@ -1,13 +1,17 @@
+/// Variables globales para almacenar los datos de los gráficos
+let data1 = [];
+let data2 = [];
+
 // Configura los detalles de tu canal de ThingSpeak
 const channel1 = {
-    id: "2865291", // ID del canal 1
-    apiKey: "GCPYYUBJMUIUL4Y5", // Clave API del canal 1
+    id: "", // ID del canal 1
+    apiKey: "", // Clave API del canal 1
     field: 7 // Campo del canal
 };
 
 const channel2 = {
-    id: "2865282", // ID del canal 2
-    apiKey: "NPFXILODVJGZOXH2", // Clave API del canal 2
+    id: "", // ID del canal 2
+    apiKey: "", // Clave API del canal 2
     field: 7 // Campo del canal
 };
 
@@ -78,24 +82,15 @@ function renderChart(canvasId, labels, data, label, color) {
 document.getElementById('consultar').addEventListener('click', async () => {
     const startDate = document.getElementById('date-start').value;
     const endDate = document.getElementById('date-end').value;
-    console.log("Consultando datos...");
-    console.log("Fechas de inicio:", startDate);
-    console.log("Fechas de fin:", endDate);
 
     if (startDate && endDate) {
-        // Formatea las fechas en ISO 8601
         const formattedStartDate = startDate + 'T00:00:00Z';
         const formattedEndDate = endDate + 'T23:59:59Z';
 
-        // Genera las URLs dinámicamente con las fechas seleccionadas
-        const url1 = getUrl(channel1, 8000, formattedStartDate, formattedEndDate);
-        const url2 = getUrl(channel2, 8000, formattedStartDate, formattedEndDate);
+        const url1 = getUrl(channel1, 800, formattedStartDate, formattedEndDate);
+        const url2 = getUrl(channel2, 800, formattedStartDate, formattedEndDate);
 
-        console.log("URL Canal 1:", url1);
-        console.log("URL Canal 2:", url2);
-
-        // Obtiene los datos de los canales
-        const [data1, data2] = await Promise.all([
+        [data1, data2] = await Promise.all([
             fetchChannelData(url1),
             fetchChannelData(url2)
         ]);
@@ -108,10 +103,57 @@ document.getElementById('consultar').addEventListener('click', async () => {
             const labels2 = data2.map(feed => new Date(feed.created_at).toLocaleTimeString());
             const values2 = data2.map(feed => parseFloat(feed[`field${channel2.field}`]));
             renderChart('grafica2', labels2, values2, 'Galpón 2', 'blue');
+
+            // Mostrar los botones de exportar
+            document.getElementById('exportar1').classList.remove('hidden');
+            document.getElementById('exportar2').classList.remove('hidden');
         } else {
             alert('No hay datos disponibles para el rango de fechas seleccionado.');
         }
     } else {
         alert('Por favor, selecciona un rango de fechas válido.');
+    }
+});
+
+// Función para exportar datos a Excel
+function exportToExcel(data, filename) {
+    // Convierte los datos en un formato adecuado para Excel
+    const formattedData = data.map(feed => ({
+        Fecha: new Date(feed.created_at).toLocaleString(),
+        humedad: parseFloat(feed[`field${channel1.field}`])
+    }));
+
+    // Crea una hoja de cálculo
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+    // Crea un libro de trabajo
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+
+    // Exporta el archivo Excel
+    XLSX.writeFile(workbook, filename);
+}
+
+// Evento para exportar los datos del gráfico 1
+document.getElementById('exportar1').addEventListener('click', () => {
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+
+    if (startDate && endDate && data1.length > 0) {
+        exportToExcel(data1, `Galpon1_${startDate}_a_${endDate}.xlsx`);
+    } else {
+        alert('No hay datos disponibles para exportar.');
+    }
+});
+
+// Evento para exportar los datos del gráfico 2
+document.getElementById('exportar2').addEventListener('click', () => {
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+
+    if (startDate && endDate && data2.length > 0) {
+        exportToExcel(data2, `Galpon2_${startDate}_a_${endDate}.xlsx`);
+    } else {
+        alert('No hay datos disponibles para exportar.');
     }
 });

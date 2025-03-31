@@ -60,3 +60,28 @@ button{
     margin-left: 10px;
 
 }
+.hidden{
+    display: none;
+}
+
+#exportar1, #exportar2{
+    background-color: #219653;
+    color: #ffffff;
+    margin-left: 10px;
+    height: 40px;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+.fas, .fa-file-download{
+    margin-right: 5px;
+    font-size: 1.2em;
+    margin-left: 5px;
+}
+.button-container2 {
+    display: flex;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    margin-top: 10px; /* Espaciado entre el gráfico y el botón */
+}
+
