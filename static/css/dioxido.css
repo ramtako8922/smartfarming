@@ -63,6 +63,12 @@ button{
 .hidden{
     display: none;
 }
+.button-container2 {
+    display: flex;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    margin-top: 10px; /* Espaciado entre el gráfico y el botón */
+}
+
 
 #exportar1, #exportar2{
     background-color: #219653;
@@ -78,10 +84,7 @@ button{
     margin-right: 5px;
     font-size: 1.2em;
     margin-left: 5px;
-}
-.button-container2 {
-    display: flex;
-    justify-content: flex-end; /* Alinea el contenido a la derecha */
-    margin-top: 10px; /* Espaciado entre el gráfico y el botón */
+    cursor: pointer;
+    justify-content:flex-end;
 }
 
