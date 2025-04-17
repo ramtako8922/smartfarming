@@ -1,17 +1,17 @@
-/// Variables globales para almacenar los datos de los gráficos
+// Variables globales para almacenar los datos de los gráficos
 let data1 = [];
 let data2 = [];
 
 // Configura los detalles de tu canal de ThingSpeak
 const channel1 = {
-    id: "", // ID del canal 1
-    apiKey: "", // Clave API del canal 1
+    id: "2865291", // ID del canal 1
+    apiKey: "GCPYYUBJMUIUL4Y5", // Clave API del canal 1
     field: 8 // Campo del canal
 };
 
 const channel2 = {
-    id: "", // ID del canal 2
-    apiKey: "", // Clave API del canal 2
+    id: "2865282", // ID del canal 2
+    apiKey: "NPFXILODVJGZOXH2", // Clave API del canal 2
     field: 8 // Campo del canal
 };
 
@@ -79,7 +79,7 @@ function renderChart(canvasId, labels, data, label, color) {
 }
 
 // Evento para consultar datos y generar gráficas
-document.getElementById('consultar').addEventListener('click', async () => {
+async function consultarDatos() {
     const startDate = document.getElementById('date-start').value;
     const endDate = document.getElementById('date-end').value;
 
@@ -113,29 +113,27 @@ document.getElementById('consultar').addEventListener('click', async () => {
     } else {
         alert('Por favor, selecciona un rango de fechas válido.');
     }
-});
+}
+
 
 // Función para exportar datos a Excel
 function exportToExcel(data, filename) {
-    // Convierte los datos en un formato adecuado para Excel
+    console.log('Datos recibidos en exportToExcel:', data);
     const formattedData = data.map(feed => ({
-        Fecha: new Date(feed.created_at).toLocaleString(),
-        teperatura: parseFloat(feed[`field${channel1.field}`])
+        Fecha: new Date(feed.created_at).toLocaleString('es-ES', { hour12: true }).trim(),
+        Temperatura: parseFloat(feed.field8),
     }));
 
-    // Crea una hoja de cálculo
-    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    console.log('Datos formateados:', formattedData);
 
-    // Crea un libro de trabajo
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
-
-    // Exporta el archivo Excel
     XLSX.writeFile(workbook, filename);
 }
 
-// Evento para exportar los datos del gráfico 1
-document.getElementById('exportar1').addEventListener('click', () => {
+// Función para exportar los datos del gráfico 1
+function exportarGrafico1() {
     const startDate = document.getElementById('date-start').value;
     const endDate = document.getElementById('date-end').value;
 
@@ -144,10 +142,10 @@ document.getElementById('exportar1').addEventListener('click', () => {
     } else {
         alert('No hay datos disponibles para exportar.');
     }
-});
+}
 
-// Evento para exportar los datos del gráfico 2
-document.getElementById('exportar2').addEventListener('click', () => {
+// Función para exportar los datos del gráfico 2
+function exportarGrafico2() {
     const startDate = document.getElementById('date-start').value;
     const endDate = document.getElementById('date-end').value;
 
@@ -156,4 +154,17 @@ document.getElementById('exportar2').addEventListener('click', () => {
     } else {
         alert('No hay datos disponibles para exportar.');
     }
-});
+}
+
+
+
+// Exporta las funciones que deseas probar
+module.exports = {
+    getUrl,
+    fetchChannelData,
+    exportToExcel,
+    consultarDatos,
+    exportarGrafico1,
+    exportarGrafico2,
+    
+};

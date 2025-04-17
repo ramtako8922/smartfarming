@@ -29,7 +29,7 @@
     </div>
         
         <div class="button-container">
-        <button id="consultar">Consultar</button>
+        <button onclick="consultarDatos()" id="consultar">Consultar</button>
         </div>
     </div>
 </div>
@@ -38,13 +38,13 @@
     <div class="chart-container">
         <canvas id="grafica1"></canvas>
         <div class="button-container2 ">
-        <button id="exportar1" class="hidden">Decargar mediciones<i class="fas fa-file-download"></i> </button>
+        <button onclick="exportarGrafico1()" id="exportar1" class="hidden">Decargar mediciones<i class="fas fa-file-download"></i> </button>
         </div>
     </div>
     <div class="chart-container">
         <canvas id="grafica2"></canvas>
         <div class="button-container2 ">
-        <button id="exportar2" class="hidden">Decargar mediciones<i class="fas fa-file-download"></i>  </button>
+        <button onclick="exportarGrafico2()" id="exportar2" class="hidden">Decargar mediciones<i class="fas fa-file-download"></i>  </button>
         </div>
     </div>
    
